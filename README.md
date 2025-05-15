@@ -1,6 +1,6 @@
 # Finturest Holiday API C# SDK
 
-Official C# SDK for the Finturest Holiday API — supports .NET Standard 2.0+ and all modern .NET versions.
+Official C# SDK for the Finturest Holiday API - supports .NET Standard 2.0+ and all modern .NET versions.
 
 [Finturest Holiday API](https://finturest.com/products/holiday-api)
 
