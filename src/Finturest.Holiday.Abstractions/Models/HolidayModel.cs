@@ -14,7 +14,7 @@ public record HolidayModel
 #if NET7_0_OR_GREATER
     public required DateOnly Date { get; init; }
 #else
-    public DateOnly Date { get; init; }
+    public DateTime Date { get; init; }
 #endif
 #else
     public DateTime Date { get; set; }

@@ -31,9 +31,21 @@ public class HolidayServiceClient : IHolidayServiceClient
     {
         var uri = $"{RouteConstants.V1}/{RouteConstants.Holidays}/{countryCode}/{RouteConstants.Upcoming}";
 
+        var queryParams = new List<string>();
+
         if (type is not null)
         {
-            uri += $"?{RouteConstants.Type}={Uri.EscapeDataString(type.Value.ToString())}";
+            queryParams.Add($"{RouteConstants.Type}={Uri.EscapeDataString(type.Value.ToString())}");
+        }
+
+        if (days.HasValue)
+        {
+            queryParams.Add($"{RouteConstants.Days}={days.Value}");
+        }
+
+        if (queryParams.Count > 0)
+        {
+            uri += $"?{string.Join("&", queryParams)}";
         }
 
         var response = await _httpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
