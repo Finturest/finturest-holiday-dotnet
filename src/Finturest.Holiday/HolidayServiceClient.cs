@@ -58,7 +58,7 @@ public class HolidayServiceClient : IHolidayServiceClient
 #if NET6_0_OR_GREATER
     public async Task<IReadOnlyList<HolidayModel>> GetHolidaysAsync(DateOnly holidayDate, HolidayType? type = null, CancellationToken cancellationToken = default)
     {
-        var uri = $"{RouteConstants.V1}/{RouteConstants.Holidays}/{RouteConstants.Search}/{RouteConstants.Date}/{holidayDate}";
+        var uri = $"{RouteConstants.V1}/{RouteConstants.Holidays}/{RouteConstants.Search}/{RouteConstants.Date}/{holidayDate:yyyy-MM-dd}";
 
         if (type is not null)
         {
@@ -74,7 +74,7 @@ public class HolidayServiceClient : IHolidayServiceClient
 
     public async Task<IReadOnlyList<HolidayModel>> GetHolidaysAsync(string countryCode, DateOnly holidayDate, HolidayType? type = null, CancellationToken cancellationToken = default)
     {
-        var uri = $"{RouteConstants.V1}/{RouteConstants.Holidays}/{countryCode}/{RouteConstants.Search}/{RouteConstants.Date}/{holidayDate}";
+        var uri = $"{RouteConstants.V1}/{RouteConstants.Holidays}/{countryCode}/{RouteConstants.Search}/{RouteConstants.Date}/{holidayDate:yyyy-MM-dd}";
 
         if (type is not null)
         {
