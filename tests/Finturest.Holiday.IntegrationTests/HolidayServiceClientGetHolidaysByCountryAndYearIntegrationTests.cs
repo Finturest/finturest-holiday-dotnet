@@ -43,6 +43,7 @@ public partial class HolidayServiceClientIntegrationTests
             holiday.Country.ShouldNotBeNull();
 
             holiday.Country.Name.ShouldNotBeNullOrEmpty();
+            holiday.Country.LocalName.ShouldNotBeNullOrEmpty();
             holiday.Country.Alpha2Code.ShouldNotBeNullOrEmpty();
             holiday.Country.Alpha3Code.ShouldNotBeNullOrEmpty();
             holiday.Country.NumericCode.ShouldNotBeNullOrEmpty();

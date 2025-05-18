@@ -15,6 +15,15 @@ public record CountryBasicModel
 #endif
 
     /// <summary>
+    /// The country's name in its native language or script.
+    /// </summary>
+#if NET7_0_OR_GREATER
+    public required string LocalName { get; init; }
+#else
+    public string LocalName { get; set; } = null!;
+#endif
+
+    /// <summary>
     /// A two-character country code compliant with ISO 3166-1 alpha-2 (e.g., "US", "DE").
     /// </summary>
 #if NET7_0_OR_GREATER
