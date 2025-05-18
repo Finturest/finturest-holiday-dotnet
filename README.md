@@ -1,8 +1,6 @@
 # Finturest Holiday API C# SDK
 
-Official C# SDK for the Finturest Holiday API - supports .NET Standard 2.0+ and all modern .NET versions.
-
-[Finturest Holiday API](https://finturest.com/products/holiday-api)
+Official C# SDK for the [Finturest Holiday API](https://finturest.com/products/holiday-api) - supports .NET Standard 2.0+ and all modern .NET versions.
 
 ## Overview
 
@@ -18,9 +16,80 @@ This SDK provides a convenient and efficient way to access the Finturest Holiday
 
 - **Date-Based Lookups**: Check if a specific date is a holiday, weekend, or working day in a given location.
 
-- **Flexible Filters**: Filter holidays by type (public, religious, observance), country, and language.
+- **Flexible Filters**: Filter holidays by type (public, religious, observance), and country.
 
 - **Official Sources**: Data is aggregated from government declarations and official sources for accuracy and reliability.
+
+## Installation
+
+Using the [.NET Core command-line interface (CLI) tools](https://learn.microsoft.com/en-us/dotnet/core/tools/):
+
+```sh
+dotnet add package Finturest.Holiday
+```
+
+Using the [NuGet Command Line Interface (CLI)](https://docs.microsoft.com/en-us/nuget/tools/nuget-exe-cli-reference):
+
+```sh
+nuget install Finturest.Holiday
+```
+
+Using the [Package Manager Console](https://docs.microsoft.com/en-us/nuget/tools/package-manager-console):
+
+```powershell
+Install-Package Finturest.Holiday
+```
+
+From within Visual Studio:
+
+1. Open the Solution Explorer.
+2. Right-click on a project within your solution.
+3. Click on _Manage NuGet Packages..._
+4. Click on the _Browse_ tab and search for "Finturest.Holiday".
+5. Click on the Finturest.Holiday package, select the appropriate version in the
+   right-tab and click _Install_.
+
+## Usage
+
+### Registering
+
+To use the `Finturest.Holiday` client, register it in your application's dependency injection container using `AddFinturestHoliday`. This configures the services required to communicate with the Finturest Holiday API.
+
+```C#
+var services = new ServiceCollection();
+
+services.AddFinturestHoliday(options =>
+{
+    options.ApiKey = "YOUR_API_KEY";
+});
+```
+
+> **Note**  
+> `IHolidayServiceClient` is registered in the DI container and should be resolved via dependency injection.  
+> In ASP.NET Core applications, it's recommended to inject it through constructor injection.
+
+> **Note**  
+> The abstractions for the Finturest Holiday API client are provided in a separate package named `Finturest.Holiday.Abstractions`.  
+> You can reference this package in your business layer to avoid a tight dependency on the implementation.  
+> Only the root application or composition root should reference the full `Finturest.Holiday` package that contains the implementation.
+
+### Get upcoming holidays
+
+To get upcoming holidays using the Finturest Holiday API, call the `GetUpcomingHolidaysAsync` method on the `IHolidayServiceClient`.
+
+```C#
+var serviceProvider = services.BuildServiceProvider();
+
+var holidayServiceClient = serviceProvider.GetRequiredService<IHolidayServiceClient>();
+
+var result = await holidayServiceClient.GetUpcomingHolidaysAsync(countryCode: "PL", days: 365, type: HolidayType.Public);
+
+Console.WriteLine($"Holidays: {result.Count}.");
+```
+
+> **Note**  
+> In production applications, avoid using `BuildServiceProvider()` manually.  
+> Instead, use constructor injection to get `IHolidayServiceClient` from the framework’s dependency injection system.
 
 ## Subscription & Pricing
 
